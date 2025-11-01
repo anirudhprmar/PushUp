@@ -15,7 +15,7 @@ interface HabitCardProps {
 export function HabitCard({ habit, onToggleDay, onDelete }: HabitCardProps) {
   const [expanded, setExpanded] = useState(false)
   const today = new Date().toISOString().split("T")[0]
-  const completedToday = habit.logs[today]
+  const completedToday = habit.logs[today!]
 
   const totalDaysCompleted = Object.values(habit.logs).filter(Boolean).length
 
@@ -26,7 +26,7 @@ export function HabitCard({ habit, onToggleDay, onDelete }: HabitCardProps) {
   const yearDays = getLast365Days()
   let currentStreak = 0
   for (let i = 0; i < yearDays.length; i++) {
-    if (habit.logs[yearDays[i]]) {
+    if (habit.logs[yearDays[i]!]) {
       currentStreak++
     } else {
       break
@@ -64,7 +64,7 @@ export function HabitCard({ habit, onToggleDay, onDelete }: HabitCardProps) {
           <p className="text-lg font-bold text-foreground">{currentStreak}</p>
         </div>
         <Button
-          onClick={() => onToggleDay(habit.id, today)}
+          onClick={() => onToggleDay(habit.id, today!)}
           variant={completedToday ? "default" : "outline"}
           size="sm"
           className={completedToday ? "bg-white text-black hover:bg-gray-100" : ""}
@@ -111,7 +111,7 @@ function getLast90Days(): string[] {
   for (let i = 89; i >= 0; i--) {
     const date = new Date(today)
     date.setDate(date.getDate() - i)
-    days.push(date.toISOString().split("T")[0])
+    days.push(date.toISOString().split("T")[0]!)
   }
 
   return days
@@ -124,7 +124,7 @@ function getLast365Days(): string[] {
   for (let i = 364; i >= 0; i--) {
     const date = new Date(today)
     date.setDate(date.getDate() - i)
-    days.push(date.toISOString().split("T")[0])
+    days.push(date.toISOString().split("T")[0]!)
   }
 
   return days

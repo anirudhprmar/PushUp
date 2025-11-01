@@ -16,7 +16,7 @@ export function GrowthChart({ habits }: GrowthChartProps) {
     for (let i = 89; i >= 0; i--) {
       const date = new Date(today)
       date.setDate(date.getDate() - i)
-      days.push(date.toISOString().split("T")[0])
+      days.push(date.toISOString().split("T")[0]!)
     }
 
     return days
@@ -69,7 +69,7 @@ export function GrowthChart({ habits }: GrowthChartProps) {
                 borderRadius: "6px",
               }}
               labelStyle={{ color: "#fff" }}
-              formatter={(value) => [value.toFixed(1), "Growth"]}
+              formatter={(value) => [typeof value === 'number' ? value.toFixed(1) : value, "Growth"]}
               labelFormatter={(label) => `Day ${label}`}
             />
             <Line

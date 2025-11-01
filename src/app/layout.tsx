@@ -1,13 +1,25 @@
 import type { Metadata } from "next"
 import { Providers } from "./components/providers"
+import { Geist, Geist_Mono } from "next/font/google"
+
 
 import "./globals.css"
 
 export const metadata: Metadata = {
-  title: "JStack App",
-  description: "Created using JStack",
-  icons: [{ rel: "icon", url: "/favicon.ico" }],
+  title: "Pushup - Habit Tracker",
+  description: "Build habits and cultivate a new lifestyle",
 }
+
+
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
 
 export default function RootLayout({
   children,
@@ -15,8 +27,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className="antialiased">
+    <html lang="en" className="dark">
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased `}>
         <Providers>{children}</Providers>
       </body>
     </html>
