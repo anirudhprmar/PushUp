@@ -1,6 +1,6 @@
 "use client"
 
-import type { Habit } from "@/app/page"
+import type { Habit } from "@/app/dashboard/page"
 import { Card } from "@/components/ui/card"
 import { GrowthChart } from "./GrowthChart"
 
@@ -11,7 +11,7 @@ interface DashboardProps {
 export function Dashboard({ habits }: DashboardProps) {
   const today = new Date().toISOString().split("T")[0]
 
-  const completedToday = habits.filter((h) => h.logs[today]).length
+  const completedToday = habits.filter((h) => h.logs[today!]).length
   const totalHabits = habits.length
 
   const habitAnalytics = habits.map((habit) => {
@@ -94,7 +94,7 @@ function getLast90Days(): string[] {
   for (let i = 89; i >= 0; i--) {
     const date = new Date(today)
     date.setDate(date.getDate() - i)
-    days.push(date.toISOString().split("T")[0])
+    days.push(date.toISOString().split("T")[0]!)
   }
 
   return days
@@ -107,7 +107,7 @@ function getLast365Days(): string[] {
   for (let i = 364; i >= 0; i--) {
     const date = new Date(today)
     date.setDate(date.getDate() - i)
-    days.push(date.toISOString().split("T")[0])
+    days.push(date.toISOString().split("T")[0]!)
   }
 
   return days
