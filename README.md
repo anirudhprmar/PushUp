@@ -5,6 +5,6 @@ Habit tracker , where your daily review is shown to others, there's a leaderboar
 
 ## Todo
 
-- [ ]- Add authentication
-- [ ]- set up database (vercel postgress)
+- [X]- Add authentication
+- [X]- set up database 
 - [ ]- make it deploy (vercel)
