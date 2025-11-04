@@ -1,6 +1,6 @@
 "use client"
 
-import type { Habit } from "@/app/page"
+import type { Habit } from "@/app/dashboard/page"
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts"
 import { Card } from "@/components/ui/card"
 

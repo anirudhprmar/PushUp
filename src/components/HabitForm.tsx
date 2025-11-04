@@ -6,7 +6,7 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card } from "@/components/ui/card"
-import type { Habit } from "@/app/page"
+import type { Habit } from "@/app/dashboard/page"
 
 interface HabitFormProps {
   onSubmit: (habit: Omit<Habit, "id" | "logs" | "createdAt">) => void

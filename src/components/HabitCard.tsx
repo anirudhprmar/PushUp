@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import type { Habit } from "@/app/page"
+import type { Habit } from "@/app/dashboard/page"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Trash2, ChevronDown, ChevronUp } from "lucide-react"

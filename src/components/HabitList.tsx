@@ -1,6 +1,6 @@
 "use client"
 
-import type { Habit } from "@/app/page"
+import type { Habit } from "@/app/dashboard/page"
 import { HabitCard } from "./HabitCard"
 
 interface HabitListProps {
