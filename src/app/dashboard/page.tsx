@@ -1,9 +1,6 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Dashboard } from "@/components/Dashboard"
-import { HabitForm } from "@/components/HabitForm"
-import { HabitList } from "@/components/HabitList"
 import { Button } from "@/components/ui/button"
 import { Plus } from "lucide-react"
 
@@ -79,32 +76,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Dashboard Stats */}
-        <Dashboard habits={habits} />
-
-        {/* Add Habit Button */}
-        <div className="mb-8">
-          {!showForm ? (
-            <Button onClick={() => setShowForm(true)} className="w-full gap-2 bg-white text-black hover:bg-gray-100">
-              <Plus className="w-5 h-5" />
-              Add Habit
-            </Button>
-          ) : (
-            <HabitForm onSubmit={addHabit} onCancel={() => setShowForm(false)} />
-          )}
-        </div>
-
-        {/* Habits List */}
-        {habits.length > 0 ? (
-          <HabitList habits={habits} onToggleDay={toggleHabitDay} onDelete={deleteHabit} />
-        ) : (
-          <div className="text-center py-12">
-            <p className="text-muted-foreground text-sm mb-4">No habits yet. Start your journey today.</p>
-            <Button onClick={() => setShowForm(true)} variant="outline">
-              Create First Habit
-            </Button>
-          </div>
-        )}
       </div>
     </main>
   )

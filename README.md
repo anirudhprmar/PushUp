@@ -5,6 +5,8 @@ Habit tracker , where your daily review is shown to others, there's a leaderboar
 
 ## Todo
 
-- [X]- Add authentication
-- [X]- set up database 
-- [ ]- make it deploy (vercel)
+- [X]- make it deploy (vercel)
+- [ ]- dashboard
+- [ ]- db support
+- [ ]- deploy backend to cloudflare
+- [ ]- user authentication
