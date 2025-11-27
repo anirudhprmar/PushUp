@@ -27,6 +27,67 @@ export const user = createTable(
   (t) => [index("email_idx").on(t.email)],
 ) 
 
+export const habit = createTable(
+  "habit",
+  (d) => ({
+    id: d.integer("id").primaryKey().generatedByDefaultAsIdentity(),
+     name: d.text("name").notNull(),
+     goal: d.text("goal").notNull(),
+     description: d.text("description"),
+     userId: d.text("user_id")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
+     createdAt: d.timestamp("created_at")
+       .$defaultFn(() => new Date())
+       .notNull(),
+     updatedAt: d.timestamp("updated_at")
+       .$defaultFn(() => new Date())
+       .notNull(),
+  }),
+  (t) => [index("habit_name_idx").on(t.name)],
+) 
+
+export const habitLog = createTable(
+  "habit_log",
+  (d) => ({
+    id: d.integer("id").primaryKey().generatedByDefaultAsIdentity(),
+    habitId: d.integer("habit_id")
+    .notNull()
+    .references(() => habit.id, { onDelete: "cascade" }),
+    userId: d.text("user_id")
+  .notNull()
+  .references(() => user.id, { onDelete: "cascade" }),
+  checkinDate:d.date("checkin_date").notNull(),
+  completed:d.boolean("completed").notNull(),
+  actionTaken:d.text("action_taken"),
+  createdAt: d.timestamp("created_at")
+    .$defaultFn(() => new Date())
+    .notNull(),
+  updatedAt: d.timestamp("updated_at")
+  .$defaultFn(()=> new Date())
+  .notNull()
+  }),
+  (t) => [index("habit_log_habit_id_idx").on(t.habitId)],
+)
+
+export const userStats = createTable(
+  "user_stats",
+  (d)=>({
+    id:d.serial("id").primaryKey(),
+    userId: d.text("user_id")
+    .notNull()
+    .unique()
+    .references(() => user.id, { onDelete:  "cascade" }),
+    currentStreak:d.integer("current_streak").default(0),
+    longestStreak:d.integer("longest_streak").default(0),
+    totalConsistentDays:d.integer("total_consistent_days").default(0),
+    updatedAt: d.timestamp("updated_at")
+    .$defaultFn(()=> new Date())
+    .notNull()
+  }),
+  (t) => [index("userstats_leaderboard_idx").on(t.currentStreak.desc(),t.longestStreak.desc())],
+)
+
 export const session = createTable("session", (d)=>({
   id: d.text("id").primaryKey(),
   expiresAt: d.timestamp("expires_at").notNull(),

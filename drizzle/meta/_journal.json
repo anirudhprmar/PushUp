@@ -22,6 +22,20 @@
       "when": 1762273844456,
       "tag": "0002_flawless_captain_britain",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1764231617870,
+      "tag": "0003_bumpy_puppet_master",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1764231970167,
+      "tag": "0004_condemned_anthem",
+      "breakpoints": true
     }
   ]
 }
