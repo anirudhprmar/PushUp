@@ -1,20 +1,30 @@
 
-import { desc } from "drizzle-orm"
 import { z } from "zod"
 import { j, publicProcedure } from "../jstack"
+import { habit } from "../db/schema"
 
 export const habitRouter = j.router({
-//   recent: publicProcedure.query(async ({ c, ctx }) => {
-//     const { db } = ctx
+  createNew: publicProcedure
+            .input(z.object({
+                name: z.string().min(1),
+                goal: z.string().min(1),
+                description: z.string().optional(),
+                userId: z.string().min(1),
+            }))
+            .mutation(async ({ ctx,c, input }) => {
+                const { db } = ctx
+                const { name, goal, description, userId } = input
+                const newHabit = await db.insert(habit).values({
+                    name,
+                    goal,
+                    description,
+                    userId,
+                }).returning();
+                
+                return c.superjson(newHabit)
+            })
 
-//     const [recentPost] = await db
-//       .select()
-//       .from(posts)
-//       .orderBy(desc(posts.createdAt))
-//       .limit(1)
-
-//     return c.superjson(recentPost ?? null)
-//   }),
+  ,
 
 //   create: publicProcedure
 //     .input(z.object({ name: z.string().min(1) }))

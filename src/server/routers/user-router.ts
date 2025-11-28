@@ -1,28 +1,22 @@
 import { desc } from "drizzle-orm"
 import { z } from "zod"
 import { j, publicProcedure } from "../jstack"
+import { user } from "../db/schema"
 
 export const userRouter = j.router({
-//   recent: publicProcedure.query(async ({ c, ctx }) => {
-//     const { db } = ctx
+  me: publicProcedure
+      .input(z.object({
+        userId: z.string().optional()
+      }))
+      .query(async ({ c, ctx }) => {
+    const { db } = ctx
 
-//     const [recentPost] = await db
-//       .select()
-//       .from(posts)
-//       .orderBy(desc(posts.createdAt))
-//       .limit(1)
+    const [recentPost] = await db
+      .select()
+      .from(user)
+      .orderBy(desc(user.createdAt))
+      .limit(1) //needs to be corrected 
 
-//     return c.superjson(recentPost ?? null)
-//   }),
-
-//   create: publicProcedure
-//     .input(z.object({ name: z.string().min(1) }))
-//     .mutation(async ({ ctx, c, input }) => {
-//       const { name } = input
-//       const { db } = ctx
-
-//       const post = await db.insert(posts).values({ name })
-
-//       return c.superjson(post)
-//     }),
+    return c.superjson(recentPost ?? null)
+  }),
 })

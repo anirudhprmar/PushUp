@@ -1,9 +1,10 @@
 import type { Metadata } from "next"
-import { Providers } from "./components/providers"
 import { Geist, Geist_Mono } from "next/font/google"
 
 
 import "./globals.css"
+import { Providers } from "@/components/Providers";
+import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: "Pushup - Habit Tracker",
@@ -30,6 +31,7 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased `}>
         <Providers>{children}</Providers>
+        <Toaster/>
       </body>
     </html>
   )
