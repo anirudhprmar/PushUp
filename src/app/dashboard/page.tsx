@@ -18,6 +18,13 @@ export default function Home() {
       return await res.json()
     },
   })
+  const { data:userHabits, isLoading:loadingUserHabits } = useQuery({
+    queryKey: ["get-user-habits"],
+    queryFn: async () => {
+      const res = await client.habit.myHabits.$get()
+      return await res.json()
+    },
+  })
  
   if (isLoading) return <p>Loading...</p>
 
@@ -35,6 +42,21 @@ export default function Home() {
           </div>
         </div>
         {createHabit && <HabitForm/>}
+        {loadingUserHabits ? <p>Loading habits...</p> : (
+          <div className="space-y-4">
+            {userHabits && [userHabits].length > 0 ? (
+              [userHabits].map((habit: any) => (
+                <div key={habit.id} className="p-4 border border-border rounded-lg">
+                  <h2 className="text-xl font-semibold text-foreground">{habit.name}</h2>
+                  <p className="text-sm text-muted-foreground">{habit.description}</p>
+                  <p className="text-sm text-foreground mt-2">Goal: {habit.goal}</p>
+                </div>
+              ))
+            ) : (
+              <p>No habits found. Start by creating a new habit!</p>
+            )}
+          </div>
+        )}
       </div>
     </main>
   )
