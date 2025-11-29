@@ -6,8 +6,8 @@ import { user } from "../db/schema"
 export const userRouter = j.router({
   me: publicProcedure
       .input(z.object({
-        userId: z.string().optional()
-      }))
+        userId: z.string()
+      }).optional())
       .query(async ({ c, ctx }) => {
     const { db } = ctx
 

@@ -31,7 +31,7 @@ export const habitRouter = j.router({
     .query(async ({ c,ctx }) => {
       const { db } = ctx
 
-      const [habits] = await db.select().from(habit).where(eq(habit.userId, ""))
+      const [habits] = await db.select().from(habit).where(eq(habit.userId, "Wxk9BvCUI2LJ29BgDDoawezMdwfMrK9P"))
 
       return c.superjson(habits ?? null)
     }),
