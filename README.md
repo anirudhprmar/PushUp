@@ -5,9 +5,8 @@ Habit tracker , where your daily review is shown to others, there's a leaderboar
 
 ## Todo
 
-- [ ]- dashboard
+- [ ]- dashboard 
 - [ ]- user authentication
-- [X]- deploy backend to cloudflare
 - [ ]- create different routes (leaderboard & profile)
 - [ ]- create a sidebar
 - [ ]- landing page redesign

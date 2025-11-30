@@ -1,3 +1,4 @@
+import { user } from './../db/schema';
 
 import { z } from "zod"
 import { j, publicProcedure } from "../jstack"
@@ -27,12 +28,25 @@ export const habitRouter = j.router({
 
   ,
 
+  //only giving one output instead of an array
   myHabits: publicProcedure
-    .query(async ({ c,ctx }) => {
-      const { db } = ctx
+      .input(z.object({
+        userId:z.string().min(1)
+      }))
+      .get(async ({ c,ctx,input }) => {
+        const { db } = ctx
+        const {userId} = input
 
-      const [habits] = await db.select().from(habit).where(eq(habit.userId, "Wxk9BvCUI2LJ29BgDDoawezMdwfMrK9P"))
+        const habits = await db
+        .select()
+        .from(habit)
+        .where(eq(habit.userId, userId))
 
-      return c.superjson(habits ?? null)
-    }),
+        if(!habits){
+          throw new Error("No habits found")
+        }
+
+        return c.superjson(habits ?? null)
+
+      }),
 })

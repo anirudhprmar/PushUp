@@ -28,7 +28,7 @@ import {
   FieldLabel,
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { client } from "@/lib/client"
 
 
@@ -45,6 +45,7 @@ const formSchema = z.object({
     .optional()
 })
 
+
 export function HabitForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -54,15 +55,16 @@ export function HabitForm() {
       description: "",
     },
   })
-    const { mutate: create, isPending } = useMutation({
+  const queryClient = useQueryClient()
+
+  const { mutate: create, isPending } = useMutation({
     mutationFn: async ({ name,goal,description }: { name: string,goal:string,description:string }) => {
-      const res = await client.habit.createNew.$post({name,goal,description,userId:""})
+      const res = await client.habit.createNew.$post({name,goal,description,userId:"Wxk9BvCUI2LJ29BgDDoawezMdwfMrK9P"})
       return await res.json()
     },
-    // onSuccess: async () => {
-    //   await queryClient.invalidateQueries({ queryKey: ["get-recent-post"] })
-    //   setName("")
-    // },
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ["get-user-habits"] })
+    },
   })
 
   function onSubmit(data: z.infer<typeof formSchema>) {

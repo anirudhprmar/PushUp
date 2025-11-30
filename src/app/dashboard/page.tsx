@@ -6,34 +6,35 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query"
 import { HabitForm } from "@/components/HabitForm";
 
-
-
 export default function Home() {
  
   const [createHabit, setCreateHabit] = useState(false);
- const { data, isLoading } = useQuery({
+
+ const { data:userInfo, isLoading} = useQuery({
     queryKey: ["get-user"],
     queryFn: async () => {
-      const res = await client.user.me.$get({userId:""})
+      const res = await client.user.me.$get({userId:"Wxk9BvCUI2LJ29BgDDoawezMdwfMrK9P"})
       return await res.json()
     },
   })
+
+
   const { data:userHabits, isLoading:loadingUserHabits } = useQuery({
     queryKey: ["get-user-habits"],
     queryFn: async () => {
-      const res = await client.habit.myHabits.$get()
+      const res = await client.habit.myHabits.$get({userId:"Wxk9BvCUI2LJ29BgDDoawezMdwfMrK9P"})
       return await res.json()
     },
   })
+
  
-  if (isLoading) return <p>Loading...</p>
 
   return (
     <main className="min-h-screen bg-background">
       <div className="max-w-2xl mx-auto px-4 py-8">
         <div className="mb-8 flex flex-col items-start justify-center">
           <div>
-            <h1 className="text-3xl font-bold text-foreground">Hello, {data?.name}</h1>
+            <h1 className="text-3xl font-bold text-foreground">Hello, {userInfo?.name ?? null}</h1>
           </div>
           <div>
             <Button variant={"default"} onClick={()=>setCreateHabit(!createHabit)} className="mt-4 flex items-center gap-2">
@@ -44,8 +45,8 @@ export default function Home() {
         {createHabit && <HabitForm/>}
         {loadingUserHabits ? <p>Loading habits...</p> : (
           <div className="space-y-4">
-            {userHabits && [userHabits].length > 0 ? (
-              [userHabits].map((habit: any) => (
+            {userHabits && userHabits.length > 0 ? (
+              userHabits.map((habit) => (
                 <div key={habit.id} className="p-4 border border-border rounded-lg">
                   <h2 className="text-xl font-semibold text-foreground">{habit.name}</h2>
                   <p className="text-sm text-muted-foreground">{habit.description}</p>
